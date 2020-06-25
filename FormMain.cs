@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿// (c) 2020 Manabu Tonosaki
+// Licensed under the MIT license.
+
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Base64Converter
@@ -90,7 +88,7 @@ namespace Base64Converter
                 var buf = Convert.FromBase64String(base64);
                 pictureBoxPreview.Image = Image.FromStream(new MemoryStream(buf));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 SetStatus($"{ex.Message}");
             }

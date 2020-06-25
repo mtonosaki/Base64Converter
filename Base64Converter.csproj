@@ -5,10 +5,24 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Base64Converter.ico</ApplicationIcon>
+    <Description>A .Net Core utility. Convert between binary file and base64</Description>
+    <Copyright>(c) 2020 Manabu Tonosaki</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>WebInvestigationIcon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/mtonosaki/Base64Converter</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Tono.Core" Version="1.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\WebInvestigation\@Res\WebInvestigationIcon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

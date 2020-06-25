@@ -1,7 +1,7 @@
+// (c) 2020 Manabu Tonosaki
+// Licensed under the MIT license.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Base64Converter
