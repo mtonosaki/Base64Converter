@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,9 @@ namespace Base64Converter
         {
             textBoxIn.Text = "";
             textBoxOut.Text = "";
+            textBoxTips.Text = "data:image/png;base64,<BASE64 Here>";
             pictureBoxPreview.Image = null;
+            labelWarning.Visible = false;
 
             if (e.Data.GetDataPresent("FileName"))
             {
@@ -39,6 +42,14 @@ namespace Base64Converter
             e.Effect = DragDropEffects.None;
         }
 
+        private static readonly Dictionary<string, string> ImageExts = new Dictionary<string, string>
+        {
+            [".jpg"] = "image/jpeg",
+            [".jpeg"] = "image/jpeg",
+            [".gif"] = "image/gif",
+            [".png"] = "image/png",
+        };
+
         private async void picture_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetData(DataFormats.FileDrop) is string[] fnames)
@@ -47,15 +58,22 @@ namespace Base64Converter
                 if (fname == default) return;
 
                 textBoxIn.Text = fname;
+                var ext = Path.GetExtension(fname);
 
                 try
                 {
                     var buf = await File.ReadAllBytesAsync(fname, CancellationToken.None);
                     var base64 = Convert.ToBase64String(buf);
-                    textBoxOut.Text = base64.Substring(0, Math.Min(base64.Length, 32760)) + (base64.Length > 32760 ? "..." : "");
-                    if (base64.Length > 32760)
+                    var trimmed = base64.Substring(0, Math.Min(base64.Length, textBoxOut.MaxLength - 32)) + (base64.Length > textBoxOut.MaxLength - 32 ? "..." : "");
+                    textBoxOut.Text = trimmed;
+                    if (ImageExts.TryGetValue(ext.ToLower(), out var mime))
+                    {
+                        textBoxTips.Text = $"data:{mime};base64,{trimmed}";
+                    }
+                    if (base64.Length > textBoxOut.MaxLength - 32)
                     {
                         SetStatus("Copy base64 text to clipboard. Output text is clipped.");
+                        labelWarning.Visible = true;
                     }
                     else
                     {
