@@ -50,7 +50,7 @@ namespace Base64Converter
             [".png"] = "image/png",
         };
 
-        private async void picture_DragDrop(object sender, DragEventArgs e)
+        private void picture_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetData(DataFormats.FileDrop) is string[] fnames)
             {
@@ -62,13 +62,14 @@ namespace Base64Converter
 
                 try
                 {
-                    var buf = await File.ReadAllBytesAsync(fname, CancellationToken.None);
+                    SuspendLayout();
+                    var buf = File.ReadAllBytesAsync(fname, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
                     var base64 = Convert.ToBase64String(buf);
                     var trimmed = base64.Substring(0, Math.Min(base64.Length, textBoxOut.MaxLength - 32)) + (base64.Length > textBoxOut.MaxLength - 32 ? "..." : "");
                     textBoxOut.Text = trimmed;
                     if (ImageExts.TryGetValue(ext.ToLower(), out var mime))
                     {
-                        textBoxTips.Text = $"data:{mime};base64,{trimmed}";
+                        textBoxTips.Text = $"<img src='data:{mime};base64,{trimmed}' />";
                     }
                     if (base64.Length > textBoxOut.MaxLength - 32)
                     {
@@ -84,6 +85,10 @@ namespace Base64Converter
                 catch (Exception ex)
                 {
                     textBoxOut.Text = ex.Message;
+                }
+                finally
+                {
+                    ResumeLayout();
                 }
             }
             else
