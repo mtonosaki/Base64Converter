@@ -36,6 +36,8 @@
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.textBoxTips = new System.Windows.Forms.TextBox();
+            this.labelWarning = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
@@ -58,7 +60,7 @@
             // 
             label2.AllowDrop = true;
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(12, 77);
+            label2.Location = new System.Drawing.Point(12, 54);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(174, 15);
             label2.TabIndex = 3;
@@ -73,11 +75,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOut.CausesValidation = false;
-            this.textBoxOut.Location = new System.Drawing.Point(12, 98);
+            this.textBoxOut.Location = new System.Drawing.Point(12, 75);
+            this.textBoxOut.MaxLength = 1000000;
             this.textBoxOut.Multiline = true;
             this.textBoxOut.Name = "textBoxOut";
             this.textBoxOut.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxOut.Size = new System.Drawing.Size(557, 196);
+            this.textBoxOut.Size = new System.Drawing.Size(557, 198);
             this.textBoxOut.TabIndex = 4;
             this.textBoxOut.TextChanged += new System.EventHandler(this.textBoxOut_TextChanged);
             this.textBoxOut.DragDrop += new System.Windows.Forms.DragEventHandler(this.picture_DragDrop);
@@ -122,13 +125,49 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(183, 17);
             this.toolStripStatusLabel1.Text = "To start, drag a file and drop here.";
             // 
+            // textBoxTips
+            // 
+            this.textBoxTips.AllowDrop = true;
+            this.textBoxTips.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTips.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxTips.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTips.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxTips.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.textBoxTips.Location = new System.Drawing.Point(12, 279);
+            this.textBoxTips.MaxLength = 1000000;
+            this.textBoxTips.Name = "textBoxTips";
+            this.textBoxTips.ReadOnly = true;
+            this.textBoxTips.Size = new System.Drawing.Size(557, 15);
+            this.textBoxTips.TabIndex = 5;
+            this.textBoxTips.Text = "data:image/png;base64,<BASE64 Here>";
+            this.textBoxTips.DragDrop += new System.Windows.Forms.DragEventHandler(this.picture_DragDrop);
+            this.textBoxTips.DragEnter += new System.Windows.Forms.DragEventHandler(this.picture_DragEnter);
+            // 
+            // labelWarning
+            // 
+            this.labelWarning.AllowDrop = true;
+            this.labelWarning.AutoSize = true;
+            this.labelWarning.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.labelWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWarning.Location = new System.Drawing.Point(192, 53);
+            this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(12, 17);
+            this.labelWarning.TabIndex = 3;
+            this.labelWarning.Text = "!";
+            this.labelWarning.Visible = false;
+            this.labelWarning.DragDrop += new System.Windows.Forms.DragEventHandler(this.picture_DragDrop);
+            this.labelWarning.DragEnter += new System.Windows.Forms.DragEventHandler(this.picture_DragEnter);
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 319);
+            this.Controls.Add(this.textBoxTips);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.labelWarning);
             this.Controls.Add(label2);
             this.Controls.Add(this.pictureBoxPreview);
             this.Controls.Add(label1);
@@ -155,6 +194,8 @@
         private System.Windows.Forms.PictureBox pictureBoxPreview;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.TextBox textBoxTips;
+        private System.Windows.Forms.Label labelWarning;
     }
 }
 
